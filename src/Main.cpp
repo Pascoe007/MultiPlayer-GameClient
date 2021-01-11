@@ -89,12 +89,12 @@ void loop(SDL_Renderer* renderer) {
                 game->input(event);
 
                 switch (event.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        is_running = false;
-                        break;
+                case SDLK_ESCAPE:
+                    is_running = false;
+                    break;
 
-                    default:
-                        break;
+                default:
+                    break;
                 }
             }
 
@@ -131,14 +131,14 @@ int run_game() {
 
     SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-    
+
 
     if (nullptr == renderer) {
         std::cout << "Failed to create renderer: " << SDL_GetError() << std::endl;
         return -1;
     }
 
-    
+
 
     loop(renderer);
 
@@ -147,7 +147,7 @@ int run_game() {
 
 int main(int argc, char** argv) {
 
-    
+
 
     // Initialize SDL
     if (SDL_Init(0) == -1) {
@@ -167,7 +167,8 @@ int main(int argc, char** argv) {
     // Checking if font is loaded
     if (font == nullptr) {
         std::cout << "Failed to create font: " << TTF_GetError() << std::endl;
-    } else {
+    }
+    else {
         std::cout << "Font Loaded" << std::endl;
     }
 
@@ -180,10 +181,14 @@ int main(int argc, char** argv) {
         // handle error
     }
     // load sample.png into image
-    SDL_Surface* image = IMG_Load("Images/borisHead.png");
-    if (!image) {
+    SDL_Surface* borisHead = IMG_Load("Images/borisHead.png");
+    SDL_Surface* Covid = IMG_Load("Images/Covid.jpg");
+    if (!borisHead || !Covid) {
         printf("IMG_Load: %s\n", IMG_GetError());
         // handle error
+    }
+    if (Covid == nullptr) {
+        std::cout << "CovidNotLoaded" << std::endl;
     }
 
     if (SDL_Init(SDL_INIT_AUDIO) < 0) {
@@ -202,7 +207,7 @@ int main(int argc, char** argv) {
     Mix_Chunk* batHit = Mix_LoadWAV("Sounds/pingpong.wav");
     Mix_Chunk* wallHit = Mix_LoadWAV("Sounds/yes.wav");
     Mix_PlayMusic(music, -1);
-    Mix_VolumeMusic(128);
+    Mix_VolumeMusic(64);
 
     if (!music | !batHit | !wallHit) {
         std::cout << "Music Not Loaded" << std::endl;
@@ -230,14 +235,14 @@ int main(int argc, char** argv) {
         exit(5);
     }
 
-    game = new MyGame(font, image, batHit, wallHit);
-    
-    
+    game = new MyGame(font, borisHead, Covid, batHit, wallHit);
+
+
 
     SDL_CreateThread(on_receive, "ConnectionReceiveThread", (void*)socket);
     SDL_CreateThread(on_send, "ConnectionSendThread", (void*)socket);
 
-    
+
 
     run_game();
 
@@ -255,7 +260,8 @@ int main(int argc, char** argv) {
     // Shutdown TTF
     TTF_Quit();
 
-    SDL_FreeSurface(image);
+    SDL_FreeSurface(borisHead);
+    SDL_FreeSurface(Covid);
 
     Mix_FreeMusic(music);
     Mix_FreeChunk(batHit);

@@ -22,42 +22,31 @@ static struct sco {
     int P2score = 0;
 }sco;
 
-class Particle {
-    public:
-
-        int x;
-        int y;
-
-        int size;
-        SDL_Color color;
-
-        Particle(int x, int y, int size, SDL_Color color);
-};
-
 class MyGame {
 
-    private:
-        SDL_Rect player1 = { 200, 0, 20, 60 };
-        SDL_Rect player2 = { 580, 0, 20, 60 };
-        SDL_Rect Ball = { 0, 0, 30, 30 };
-        TTF_Font* font;
-        SDL_Surface* image;
-        Mix_Chunk* batHit;
-        Mix_Chunk* wallHit;
+private:
+    SDL_Rect player1 = { 200, 0, 20, 60 };
+    SDL_Rect player2 = { 580, 0, 20, 60 };
+    SDL_Rect Ball = { 0, 0, 30, 30 };
+    TTF_Font* font;
+    SDL_Surface* borisHead;
+    SDL_Surface* Covid;
+    Mix_Chunk* batHit;
+    Mix_Chunk* wallHit;
 
-        std::vector<Particle*> particles;
-        
 
-    public:
-        MyGame(TTF_Font* font, SDL_Surface* image, Mix_Chunk* batHit, Mix_Chunk* wallHit);
 
-        std::vector<std::string> messages;
-        void on_receive(std::string message, std::vector<std::string>& args);
-        void send(std::string message);
-        void input(SDL_Event& event);
-        void render(SDL_Renderer* renderer);
-        void update();
-        
+
+public:
+    MyGame(TTF_Font* font, SDL_Surface* borisHead, SDL_Surface* Covid, Mix_Chunk* batHit, Mix_Chunk* wallHit);
+
+    std::vector<std::string> messages;
+    void on_receive(std::string message, std::vector<std::string>& args);
+    void send(std::string message);
+    void input(SDL_Event& event);
+    void render(SDL_Renderer* renderer);
+    void update();
+
 };
 
 #endif
