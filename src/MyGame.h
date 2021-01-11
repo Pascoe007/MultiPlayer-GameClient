@@ -30,6 +30,7 @@ private:
     SDL_Rect Ball = { 0, 0, 30, 30 };
     TTF_Font* font;
     SDL_Surface* borisHead;
+    SDL_Surface* backGround;
     SDL_Surface* Covid;
     Mix_Chunk* batHit;
     Mix_Chunk* wallHit;
@@ -38,7 +39,7 @@ private:
 
 
 public:
-    MyGame(TTF_Font* font, SDL_Surface* borisHead, SDL_Surface* Covid, Mix_Chunk* batHit, Mix_Chunk* wallHit);
+    MyGame(TTF_Font* font, SDL_Surface* borisHead, SDL_Surface* backGround, SDL_Surface* Covid, Mix_Chunk* batHit, Mix_Chunk* wallHit);
 
     std::vector<std::string> messages;
     void on_receive(std::string message, std::vector<std::string>& args);

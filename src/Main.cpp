@@ -182,6 +182,7 @@ int main(int argc, char** argv) {
     }
     // load sample.png into image
     SDL_Surface* borisHead = IMG_Load("Images/borisHead.png");
+    SDL_Surface* backGround = IMG_Load("Images/Background.jpg");
     SDL_Surface* Covid = IMG_Load("Images/Covid.jpg");
     if (!borisHead || !Covid) {
         printf("IMG_Load: %s\n", IMG_GetError());
@@ -235,7 +236,7 @@ int main(int argc, char** argv) {
         exit(5);
     }
 
-    game = new MyGame(font, borisHead, Covid, batHit, wallHit);
+    game = new MyGame(font, borisHead,backGround, Covid, batHit, wallHit);
 
 
 
@@ -261,6 +262,7 @@ int main(int argc, char** argv) {
     TTF_Quit();
 
     SDL_FreeSurface(borisHead);
+    SDL_FreeSurface(backGround);
     SDL_FreeSurface(Covid);
 
     Mix_FreeMusic(music);

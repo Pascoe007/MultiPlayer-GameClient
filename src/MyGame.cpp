@@ -1,8 +1,9 @@
 #include "MyGame.h"
 
-MyGame::MyGame(TTF_Font* font, SDL_Surface* borisHead, SDL_Surface* Covid, Mix_Chunk* batHit, Mix_Chunk* wallHit) {
+MyGame::MyGame(TTF_Font* font, SDL_Surface* borisHead, SDL_Surface* backGround, SDL_Surface* Covid, Mix_Chunk* batHit, Mix_Chunk* wallHit) {
     this->font = font;
     this->borisHead = borisHead;
+    this->backGround = backGround;
     this->Covid = Covid;
     this->batHit = batHit;
     this->wallHit = wallHit;
@@ -73,32 +74,37 @@ void MyGame::update() {
 }
 
 void MyGame::render(SDL_Renderer* renderer) {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_Rect bgdst = { 0, 0, 800, 600 };
+    auto bgtexture = SDL_CreateTextureFromSurface(renderer, backGround);
+    SDL_RenderCopy(renderer, bgtexture, NULL, &bgdst);
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderDrawRect(renderer, &player1);
     SDL_RenderFillRect(renderer, &player1);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderDrawRect(renderer, &player2);
     SDL_RenderFillRect(renderer, &player2);
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    //SDL_RenderDrawRect(renderer, &Ball);
-    //SDL_RenderFillRect(renderer, &Ball);
-
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    
+    
     SDL_Rect dst = { 300,50,128,96 };
     SDL_Rect dst2 = { 400,400,128,96 };
+    
     //auto C19texture = SDL_CreateTextureFromSurface(renderer, Covid);
-    //auto BHtexture = SDL_CreateTextureFromSurface(renderer, borisHead);
+    auto BHtexture = SDL_CreateTextureFromSurface(renderer, borisHead);
 
 
+    
     //SDL_RenderCopy(renderer, C19texture, NULL, &dst);
     //SDL_RenderCopy(renderer, C19texture, NULL, &dst2);
-    //SDL_RenderCopy(renderer, BHtexture, NULL, &Ball);
+    SDL_RenderCopy(renderer, BHtexture, NULL, &Ball);
 
     SDL_RenderPresent(renderer);
 
     std::string score_textp1 = std::to_string(sco.P1score);
     std::string score_textp2 = std::to_string(sco.P2score);
 
-    SDL_Color text_color = { 255, 255, 255, 255 };
+    SDL_Color text_color = { 0, 0, 0, 255 };
 
     SDL_Surface* text_surfacep1 = TTF_RenderText_Blended(font, score_textp1.c_str(), text_color);
     SDL_Surface* text_surfacep2 = TTF_RenderText_Blended(font, score_textp2.c_str(), text_color);
@@ -129,7 +135,7 @@ void MyGame::render(SDL_Renderer* renderer) {
     SDL_FreeSurface(text_surfacep1);
     SDL_FreeSurface(text_surfacep2);
     SDL_DestroyTexture(BHtexture);
-    SDL_DestroyTexture(C19texture);
+    SDL_DestroyTexture(bgtexture);
 
 
 }
