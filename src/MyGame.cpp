@@ -27,8 +27,7 @@ void MyGame::on_receive(std::string cmd, std::vector<std::string>& args) {
         if (args.size() == 2) {
             sco.P1score = stoi(args.at(0));
             sco.P2score = stoi(args.at(1));
-            std::cout << "P2Score: " << sco.P2score << std::endl;
-            std::cout << "P1Score: " << sco.P1score << std::endl;
+            
         }
     }
     else if (cmd == "BALL_HIT_BAT1" | cmd == "BALL_HIT_BAT2") {
