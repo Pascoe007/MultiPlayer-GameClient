@@ -89,13 +89,13 @@ void MyGame::render(SDL_Renderer* renderer) {
     SDL_Rect dst = { 300,50,128,96 };
     SDL_Rect dst2 = { 400,400,128,96 };
     
-    //auto C19texture = SDL_CreateTextureFromSurface(renderer, Covid);
+    
     auto BHtexture = SDL_CreateTextureFromSurface(renderer, borisHead);
 
 
     
-    //SDL_RenderCopy(renderer, C19texture, NULL, &dst);
-    //SDL_RenderCopy(renderer, C19texture, NULL, &dst2);
+    
+    
     SDL_RenderCopy(renderer, BHtexture, NULL, &Ball);
 
     SDL_RenderPresent(renderer);
